@@ -19,6 +19,7 @@ function App() {
     const ws = new WebSocket('ws://localhost:8080');
     setSocket(ws);
 
+    // for now just alreting the message on scree 
     ws.onmessage = (ev) => {
       alert(ev.data);
     }
