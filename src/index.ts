@@ -24,6 +24,8 @@ wss.on('connection', (socket) => {
     socket.on('message', (e) => {
         if(e.toString() === 'ping') {
             socket.send('pong');
+        } else {
+            socket.send('you are not sending ping');
         }
     })
 });
