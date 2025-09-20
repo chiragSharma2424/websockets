@@ -1,36 +1,30 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './App.css'
+import { useEffect, useState } from 'react';
+import './App.css';
+
+// we know that wehever app component render the useEffect will run
+// before anything we have to make connection between our frontend and websocket server
 
 function App() {
-  const [socket, setSocket] = useState();
-  const inputRef = useRef();
-
+  const [ws, setWs] = useState();
   function sendMessage() {
-    if(!socket) {
-      return;
-    }
-    //@ts-expect-error
-
-    const message = inputRef.current.value;
-    socket.send(message);
+    ws.send('ping');
   }
 
+  // this will create the connection and logs the data
   useEffect(() => {
     const ws = new WebSocket('ws://localhost:8080');
-    setSocket(ws);
-
-    // for now just alreting the message on scree 
-    ws.onmessage = (ev) => {
-      alert(ev.data);
+    setWs(ws);
+    ws.onmessage = (e) => {
+      console.log(e.data);
     }
   }, []);
 
   return (
     <div>
-      <input ref={inputRef} type="text" placeholder='Message' />
-      <button onClick={sendMessage}>Send</button>
+      <input  type="text" placeholder='Message' />
+      <button>Send</button>
     </div>
   )
 }
 
-export default App
+export default App;

@@ -27,5 +27,9 @@ wss.on('connection', (socket) => {
         } else {
             socket.send('you are not sending ping');
         }
-    })
+    });
+
+    setInterval(() => {
+        socket.send('hello');
+    }, 2000);
 });
